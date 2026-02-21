@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Магазин</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+{% block header %}
+<header class="header">
+    <div><a class="logo" href="{% url 'main' %}">Power ⏻</a></div>
+
+    <nav class="nav" id="navMenu">
+    <a href="{% url 'main' %}">Главная</a>
+    <a href="#">Каталог</a>
+    <a href="#">О нас</a>
+    <a href="#">Контакты</a>
+</nav>
+
+<button class="burger-btn" onclick="toggleBurger()">☰</button>
+
+    <button class="menu-btn" onclick="toggleMenu()">✕ Категории</button>
+</header>
+{% endblock %}
+
+{% block category %}
+<aside class="category-menu" id="categoryMenu">
+    <form method="get" class="category-form">
+        <button name="c" value="">Все</button>
+        {% for i in category %}
+            <button name="c" value="{{i.id}}">{{i.name}}</button>
+        {% endfor %}
+    </form>
+</aside>
+{% endblock %}
+
+{% block info %}
+<main class="container">
+
+<section class="search-section">
+    <form method="get" class="search-form">
+        <input
+            type="text"
+            name="q"
+            placeholder="Ищи все, что душе угодно..."
+            value="{{ query }}"
+            class="search-input"
+        >
+    </form>
+</section>
+    <section class="products">
+        {% for j in product %}
+        <div class="product-card">
+            <a style="text-decoration: none" href="{% url 'detail' j.slug %}">
+            <img src="{{ j.img.url }}" alt="{{ j.name }}">
+            <h2>{{ j.name|truncatechars:24 }}</h2>
+            <p>{{ j.descripion|truncatechars:39 }}</p>
+            <div class="price">{{ j.price }} lei</div>
+            </a>
+        </div>
+        {% endfor %}
+    </section>
+</main>
+{% endblock %}
+
+{% block footer %}
+<footer class="footer">
+    <p>© 2026 Магазин. Все права защищены.</p>
+</footer>
+{% endblock %}
+
+<script>
+function toggleMenu() {
+    document.getElementById('categoryMenu').classList.toggle('open');
+}
+
+function toggleBurger() {
+    document.getElementById('navMenu').classList.toggle('open');
+}
+</script>
+
+</body>
+</html>
