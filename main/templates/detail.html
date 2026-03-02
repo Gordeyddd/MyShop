@@ -1,0 +1,49 @@
+{% extends 'main.html' %}
+
+{% block header %}
+<header class="header">
+    <div><a class="logo" href="{% url 'main' %}">Power ⏻</a></div>
+
+    <nav class="nav" id="navMenu">
+    <a href="{% url 'main' %}">Главная</a>
+    <a href="#">О нас</a>
+    <a href="#">Контакты</a>
+</nav>
+
+<button class="burger-btn" onclick="toggleBurger()">☰</button>
+</header>
+{% endblock %}
+
+{% block info %}
+<main class="container">
+
+<div class="detail-wrapper">
+
+    <div class="detail-image">
+        <img src="{{ product.img.url }}" alt="{{ product.name }}">
+    </div>
+
+    <div class="detail-info">
+        <h1 class="detail-title">{{ product.name }}</h1>
+
+        <p class="detail-desc">
+            {{ product.descripion }}
+        </p>
+
+        <div class="detail-meta">
+            <div class="detail-price">{{ product.price }} lei</div>
+            <div class="detail-stock">
+                В наличии: {{ product.stock }}
+            </div>
+            <div class="detail-category">
+                Категория: {{ product.category }}
+            </div>
+        </div>
+
+        <button class="buy-btn">Купить </button>
+    </div>
+
+</div>
+
+</main>
+{% endblock %}
